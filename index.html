@@ -1,0 +1,397 @@
+
+
+
+
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Web Kita 💕</title>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      font-family: "Poppins", sans-serif;
+      background: linear-gradient(135deg, #ffdde1, #ee9ca7);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      overflow: hidden;
+    }
+
+    /* ===== LOGIN ===== */
+    #loginPage {
+      text-align: center;
+      background: rgba(255,255,255,0.9);
+      padding: 40px;
+      border-radius: 20px;
+      box-shadow: 0 5px 25px rgba(0,0,0,0.2);
+      width: 320px;
+      animation: fadeIn 1.5s ease-in-out;
+    }
+    #loginPage h2 { color: #e75480; font-weight: 700; margin-bottom: 20px; }
+
+    input {
+      width: 80%;
+      padding: 10px;
+      margin: 8px 0;
+      border-radius: 10px;
+      border: 1px solid #ccc;
+      outline: none;
+      text-align: center;
+    }
+    button {
+      background: #e75480;
+      border: none;
+      color: white;
+      padding: 10px 20px;
+      border-radius: 10px;
+      cursor: pointer;
+      transition: 0.3s;
+    }
+    button:hover { background: #ff99b8; }
+    #errorMsg { color: red; font-size: 14px; margin-top: 5px; display: none; }
+
+    /* ===== PAGES ===== */
+    section {
+      display: none;
+      text-align: center;
+      width: 100%;
+      height: 100vh;
+      overflow: hidden;
+      position: relative;
+      color: white;
+      transition: opacity 0.5s ease-in-out;
+    }
+    #mainPage { background: linear-gradient(135deg, #ffb6c1, #ff69b4); }
+    #page3 { background: linear-gradient(135deg, #ffd6e8, #ff80ab); }
+    #page4 { background: linear-gradient(135deg, #ffc2d1, #ff8fab); }
+
+    .container {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      flex-direction: row;
+      flex-wrap: wrap;
+      gap: 40px;
+      height: 100%;
+      padding: 20px;
+    }
+
+    .text-box {
+      max-width: 400px;
+      background: rgba(255, 255, 255, 0.15);
+      border-radius: 20px;
+      padding: 30px;
+      box-shadow: 0 5px 20px rgba(0, 0, 0, 0.2);
+      backdrop-filter: blur(6px);
+      animation: fadeIn 2s;
+    }
+
+    .scroll-box {
+      position: relative;
+      width: 480px;
+      height: 270px;
+      overflow: hidden;
+      border-radius: 20px;
+      box-shadow: 0 10px 25px rgba(0, 0, 0, 0.3);
+    }
+    .photo-column {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      display: flex;
+      flex-direction: column;
+      animation: scrollSmooth 50s linear infinite;
+    }
+    .photo-column img {
+      width: 100%;
+      aspect-ratio: 16/9;
+      object-fit: cover;
+      object-position: center;
+    }
+    @keyframes scrollSmooth {
+      0% { transform: translateY(0); }
+      100% { transform: translateY(-50%); }
+    }
+
+    footer {
+      position: absolute;
+      bottom: 10px;
+      width: 100%;
+      text-align: center;
+      font-size: 14px;
+      color: white;
+    }
+
+    /* ===== BUTTONS ===== */
+    #musicBtn, #loveClick, #nextPageBtn, #backBtn {
+      position: absolute;
+      background: rgba(255,255,255,0.3);
+      border: none;
+      border-radius: 50%;
+      padding: 10px;
+      cursor: pointer;
+      transition: 0.3s;
+      font-size: 20px;
+      color: white;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.2);
+      z-index: 3;
+    }
+    #musicBtn:hover, #loveClick:hover, #nextPageBtn:hover, #backBtn:hover {
+      background: rgba(255,255,255,0.5);
+    }
+    #musicBtn { top: 20px; right: 20px; }
+    #loveClick { bottom: 80px; right: 20px; font-size: 24px; }
+    #nextPageBtn { bottom: 20px; right: 20px; font-size: 22px; }
+    #backBtn { bottom: 20px; left: 20px; font-size: 22px; }
+
+    /* ===== LOVE FALL ===== */
+    .heart {
+      position: fixed;
+      top: 0;
+      color: #ffdde1;
+      font-size: 20px;
+      animation: fall 6s linear forwards;
+      opacity: 0.9;
+      pointer-events: none;
+      z-index: 999;
+    }
+    @keyframes fall {
+      0% { transform: translateY(-10vh); opacity: 1; }
+      100% { transform: translateY(110vh); opacity: 0; }
+    }
+
+    /* ===== PAGE 3 ===== */
+    #page3 .words {
+      max-width: 600px;
+      background: rgba(255,255,255,0.25);
+      border-radius: 20px;
+      padding: 30px;
+      box-shadow: 0 8px 25px rgba(0,0,0,0.2);
+      backdrop-filter: blur(6px);
+      margin-bottom: 40px;
+      color: #fff;
+    }
+    #page3 .videos {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 20px;
+    }
+    video {
+      width: 280px;
+      border-radius: 15px;
+      box-shadow: 0 8px 20px rgba(0,0,0,0.3);
+    }
+
+    /* ===== PAGE 4 ===== */
+    #page4 .sticker-container {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 20px;
+      margin-top: 40px;
+    }
+    .sticker {
+      background: rgba(255,255,255,0.25);
+      padding: 20px 40px;
+      border-radius: 50px;
+      font-size: 20px;
+      color: white;
+      cursor: pointer;
+      box-shadow: 0 5px 20px rgba(0,0,0,0.2);
+      transition: transform 0.3s;
+    }
+    .sticker:hover { transform: scale(1.1); background: rgba(255,255,255,0.4); }
+
+    .photoSet {
+      display: none;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 15px;
+      margin-top: 20px;
+      animation: fadeIn 1s ease-in-out;
+    }
+    .photoSet img {
+      width: 150px;
+      height: 150px;
+      border-radius: 20px;
+      object-fit: cover;
+      box-shadow: 0 6px 15px rgba(0,0,0,0.3);
+      transition: transform 0.3s ease;
+    }
+    .photoSet img:hover { transform: scale(1.1); }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: scale(0.9); }
+      to { opacity: 1; transform: scale(1); }
+    }
+  </style>
+</head>
+
+<body>
+  <!-- LOGIN -->
+  <div id="loginPage">
+    <h2>Login Dulu Sayang 💕</h2>
+    <input type="text" id="username" placeholder="Masukkan nama kamu"><br>
+    <input type="password" id="password" placeholder="Masukkan password"><br>
+    <button onclick="login()">Masuk</button>
+    <p id="errorMsg">Eits, bukan kamu nih 😘 coba lagi ya!</p>
+  </div>
+
+  <!-- PAGE 2 -->
+  <section id="mainPage">
+    <div class="container">
+      <div class="scroll-box">
+        <div class="photo-column">
+          <img src="1.jpg"><img src="2.jpg"><img src="3.jpg"><img src="4.jpg"><img src="5.jpg">
+          <img src="6.jpg"><img src="7.jpg"><img src="8.jpg"><img src="9.jpg"><img src="10.jpg"><img src="11.jpg">
+          <img src="1.jpg"><img src="2.jpg"><img src="3.jpg"><img src="4.jpg"><img src="5.jpg">
+          <img src="6.jpg"><img src="7.jpg"><img src="8.jpg"><img src="9.jpg"><img src="10.jpg"><img src="11.jpg">
+
+        </div>
+      </div>
+      <div class="text-box">
+        <h2>Buat Mas 💖</h2>
+        <p id="textDisplay">Setiap detik bersamamu terasa seperti mimpi yang indah...</p>
+      </div>
+    </div>
+    <audio id="loveMusic" loop>
+      <source src="Jaz - Bersamamu.mp3" type="audio/mp3">
+    </audio>
+    <button id="musicBtn" onclick="toggleMusic()">🎵</button>
+    <button id="loveClick" onclick="spawnBigHeart()">💗</button>
+    <button id="nextPageBtn" onclick="nextPage()">➡️</button>
+    <footer>© 2025 Bryan & Syafana 💞</footer>
+  </section>
+
+  <!-- PAGE 3 -->
+  <section id="page3">
+    <div class="container" style="flex-direction: column;">
+      <div class="words">
+        <h2>💌 Untuk Kita 💌</h2>
+        <p>Setiap kenangan yang kita buat adalah bagian dari cerita cinta yang tak akan pernah pudar.  
+        Tawa, air mata, pelukan — semuanya berharga.  
+        Aku ingin kita terus berjalan bersama, sampai waktu pun iri melihat kita. 💞</p>
+      </div>
+      <div class="videos">
+        <video controls src="v1.mp4"></video>
+        <video controls src=""></video>
+      </div>
+      <button id="backBtn" onclick="backToMain()">⬅️</button>
+      <button id="nextPageBtn" onclick="nextToGallery()">➡️</button>
+    </div>
+    <footer>✨ Cerita Kita Selamanya ✨</footer>
+  </section>
+
+  <!-- PAGE 4 -->
+  <section id="page4">
+    <div class="container" style="flex-direction: column;">
+      <h2>💞 Galeri Kita 💞</h2>
+      <div class="sticker-container">
+        <div class="sticker" onclick="togglePhotos('ceweSet')">👧</div>
+        <div class="photoSet" id="ceweSet">
+          <img src="19.jpg">
+          <img src="20.jpg">
+          <img src="21.jpg">
+          <img src="22.jpg">
+          <img src="23.jpg">
+        </div>
+
+        <div class="sticker" onclick="togglePhotos('cowoSet')">👦</div>
+        <div class="photoSet" id="cowoSet">
+          <img src="12.jpg">
+          <img src="13.jpg">
+          <img src="14.jpg">
+          <img src="16.jpg">
+          <img src="17.jpg">
+          <img src="18.jpg">
+        </div>
+      </div>
+      <button id="backBtn" onclick="backToPage3()">⬅️</button>
+    </div>
+    <footer>Foto kita 💕</footer>
+  </section>
+
+  <script>
+    function login() {
+      const pass = document.getElementById("password").value;
+      const validPass = "brayana";
+      if (pass === validPass) {
+        document.getElementById("loginPage").style.display = "none";
+        document.getElementById("mainPage").style.display = "block";
+        document.getElementById("loveMusic").play();
+      } else {
+        document.getElementById("errorMsg").style.display = "block";
+      }
+    }
+
+    const music = document.getElementById("loveMusic");
+    let playing = true;
+    function toggleMusic() {
+      if (playing) { music.pause(); } else { music.play(); }
+      playing = !playing;
+    }
+
+    const texts = [
+      "Setiap detik bersamamu terasa seperti mimpi yang indah.",
+      "Kamu adalah alasanku tersenyum setiap hari.",
+      "Selamanya aku ingin bersamamu.",
+      "Kamu adalah cinta sejati dalam hidupku."
+    ];
+    let idx = 0;
+    const textDisplay = document.getElementById("textDisplay");
+    setInterval(() => {
+      idx = (idx + 1) % texts.length;
+      textDisplay.textContent = texts[idx];
+    }, 5000);
+
+    setInterval(() => {
+      const heart = document.createElement("div");
+      heart.classList.add("heart");
+      heart.textContent = "💖";
+      heart.style.left = Math.random() * 100 + "vw";
+      heart.style.fontSize = Math.random() * 20 + 10 + "px";
+      heart.style.animationDuration = (Math.random() * 3 + 4) + "s";
+      document.body.appendChild(heart);
+      setTimeout(() => heart.remove(), 7000);
+    }, 400);
+
+    function spawnBigHeart() {
+      const heart = document.createElement("div");
+      heart.classList.add("heart");
+      heart.textContent = "💗";
+      heart.style.left = Math.random() * 90 + "vw";
+      heart.style.fontSize = "40px";
+      document.body.appendChild(heart);
+      setTimeout(() => heart.remove(), 7000);
+    }
+
+    function nextPage() {
+      document.getElementById("mainPage").style.display = "none";
+      document.getElementById("page3").style.display = "block";
+    }
+    function backToMain() {
+      document.getElementById("page3").style.display = "none";
+      document.getElementById("mainPage").style.display = "block";
+    }
+    function nextToGallery() {
+      document.getElementById("page3").style.display = "none";
+      document.getElementById("page4").style.display = "block";
+    }
+    function backToPage3() {
+      document.getElementById("page4").style.display = "none";
+      document.getElementById("page3").style.display = "block";
+    }
+
+    function togglePhotos(id) {
+      const set = document.getElementById(id);
+      set.style.display = set.style.display === "flex" ? "none" : "flex";
+    }
+  </script>
+</body>
+</html>
